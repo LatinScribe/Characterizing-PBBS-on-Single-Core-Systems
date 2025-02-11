@@ -1,0 +1,3 @@
+/u/csc368h/winter/pub/bin/gem5.opt inorder.py -f 500MHz ~/csc368/pbbsbench/benchmarks/wordCounts/serial/wc --binary_args "-o output.txt -r 1 ~/csc368/pbbsbench/benchmarks/wordCounts/serial/wc/testInputs_small"
+
+# when running this script, you may have to modify the file paths
