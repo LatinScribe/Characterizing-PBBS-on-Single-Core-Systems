@@ -65,7 +65,7 @@ Call Benchmarks on inorder:
 /u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/wordCounts_serial inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/serial/wc --binary_args "-o inorder/wordCounts_serial/output.txt -r 1 trigramString_16K.txt"
 
 
-/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/nBody inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/nBody/parallelCK/nbody --binary_args "-o inorder/nBody/output.txt -r 1 randPoints3D_16K.txt"
+X /u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/nBody inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/nBody/parallelCK/nbody --binary_args "-o inorder/nBody/output.txt -r 1 randPoints3D_16K.txt"
 
 
 Call Benchmarks on out-of-order:
