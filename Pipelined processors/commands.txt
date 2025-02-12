@@ -1,0 +1,120 @@
+Run these in a folder with trigrams.txt and inorder.py/out-of-order.py
+
+Generate Inputs:
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/sequenceData/randomSeq -t int -r 4096 16384 randomSeq_4K_16K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/geometryData/randPoints -k -d 3 16384 randPoints3D_16K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/geometryData/randPoints -d 2 16384 randPoints2D_16K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/graphData/randLocalGraph -j -d 3 -m 65536 16384 randomAdjGraph_65K_16K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/graphData/randLocalGraph -d 3 -m 65536 16384 randomEdgeArray_65K_16K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/graphData/addWeights randomEdgeArray_65K_16K.txt randomWeightGraph_65K_16K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/sequenceData/trigramString 16384 trigramString_16K.txt
+
+
+Call Benchmarks on inorder:
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/comparisonSort_sampleSort inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/sampleSort/sort --binary_args "-o inorder/comparisonSort_sampleSort/output.txt -r 1 randomSeq_4K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/comparisonSort_serialSort inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/serialSort/sort --binary_args "-o inorder/comparisonSort_serialSort/output.txt -r 1 randomSeq_4K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/integerSort_parallelRadixSort inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/integerSort/parallelRadixSort/isort --binary_args "-o inorder/integerSort_parallelRadixSort/output.txt -r 1 randomSeq_4K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/integerSort_serialRadixSort inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/integerSort/serialRadixSort/isort --binary_args "-o inorder/integerSort_serialRadixSort/output.txt -r 1 randomSeq_4K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/removeDuplicates_parlayhash inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/removeDuplicates/parlayhash/dedup --binary_args "-o inorder/removeDuplicates_parlayhash/output.txt -r 1 randomSeq_4K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/removeDuplicates_serial_hash inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/removeDuplicates/serial_hash/dedup --binary_args "-o inorder/removeDuplicates_serial_hash/output.txt -r 1 randomSeq_4K_16K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/convHull_quickHull inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/convexHull/serialHull/hull --binary_args "-o inorder/convHull_quickHull/output.txt -r 1 randPoints2D_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/convHull_serialHull inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/convexHull/serialHull/hull --binary_args "-o inorder/convHull_serialHull/output.txt -r 1 randPoints2D_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/delaunayTriangulation inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/delaunayTriangulation/incrementalDelaunay/delaunay --binary_args "-o inorder/delaunayTriangulation/output.txt -r 1 randPoints2D_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/delaunayRefine inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/delaunayRefine/incrementalRefine/refine --binary_args "-o inorder/delaunayRefine/output.txt -r 1 inorder/delaunayTriangulation/output.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/nearestNeighbors inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/nearestNeighbors/octTree/neighbors --binary_args "-o inorder/nearestNeighbors/output.txt -k 10 -d 3 -r 1 randPoints3D_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/rangeQuery2d_parallelPlaneSweep inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/rangeQuery2d/parallelPlaneSweep/range --binary_args "-o inorder/rangeQuery2d_parallelPlaneSweep/output.txt -r 1 randPoints2D_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/rangeQuery2d_serial inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/rangeQuery2d/serial/range --binary_args "-o inorder/rangeQuery2d_serial/output.txt -r 1 randPoints2D_16K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/breadthFirstSearch_backForwardBFS inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/backForwardBFS/BFS --binary_args "-o inorder/breadthFirstSearch_backForwardBFS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/breadthFirstSearch_serialBFS inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/serialBFS/BFS --binary_args "-o inorder/breadthFirstSearch_serialBFS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/maximalIndependentSet_incrementalMIS inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalIndependentSet/incrementalMIS/MIS --binary_args "-o inorder/maximalIndependentSet_incrementalMIS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/maximalIndependentSet_serialMIS inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalIndependentSet/serialMIS/MIS --binary_args "-o inorder/maximalIndependentSet_serialMIS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/maximalMatching_incrementalMatching inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalMatching/incrementalMatching/matching --binary_args "-o inorder/maximalMatching_incrementalMatching/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/maximalMatching_serialMatching inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalMatching/serialMatching/matching --binary_args "-o inorder/maximalMatching_serialMatching/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/spanningForest_ndST inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/spanningForest/ndST/ST --binary_args "-o inorder/spanningForest_ndST/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/spanningForest_serialST inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/spanningForest/serialST/ST --binary_args "-o inorder/spanningForest_serialST/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/minspanningForest_parallelFilterKruskal inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/minSpanningForest/parallelFilterKruskal/MST --binary_args "-o inorder/minspanningForest_parallelFilterKruskal/output.txt -r 1 randomWeightGraph_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/minspanningForest_serialMST inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/minSpanningForest/serialMST/MST --binary_args "-o inorder/minspanningForest_serialMST/output.txt -r 1 randomWeightGraph_65K_16K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/longestRepeatedSubstring inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/longestRepeatedSubstring/doubling/lrs --binary_args "-o inorder/longestRepeatedSubstring/output.txt -r 1 trigramString_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/suffixArray_parallelRange inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/suffixArray/parallelRange/SA --binary_args "-o inorder/suffixArray_parallelRange/output.txt -r 1 trigramString_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/suffixArray_serialDivsufsort inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/suffixArray/serialDivsufsort/SA --binary_args "-o inorder/suffixArray_serialDivsufsort/output.txt -r 1 trigramString_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/wordCounts_histogram inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/histogram/wc --binary_args "-o inorder/wordCounts_histogram/output.txt -r 1 trigramString_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/wordCounts_serial inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/serial/wc --binary_args "-o inorder/wordCounts_serial/output.txt -r 1 trigramString_16K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir inorder/nBody inorder.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/nBody/parallelCK/nbody --binary_args "-o inorder/nBody/output.txt -r 1 randPoints3D_16K.txt"
+
+
+Call Benchmarks on out-of-order:
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/comparisonSort_sampleSort out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/sampleSort/sort --binary_args "-o out-of-order/comparisonSort_sampleSort/output.txt -r 1 randomSeq_4K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/comparisonSort_serialSort out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/serialSort/sort --binary_args "-o out-of-order/comparisonSort_serialSort/output.txt -r 1 randomSeq_4K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/integerSort_parallelRadixSort out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/integerSort/parallelRadixSort/isort --binary_args "-o out-of-order/integerSort_parallelRadixSort/output.txt -r 1 randomSeq_4K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/integerSort_serialRadixSort out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/integerSort/serialRadixSort/isort --binary_args "-o out-of-order/integerSort_serialRadixSort/output.txt -r 1 randomSeq_4K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/removeDuplicates_parlayhash out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/removeDuplicates/parlayhash/dedup --binary_args "-o out-of-order/removeDuplicates_parlayhash/output.txt -r 1 randomSeq_4K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/removeDuplicates_serial_hash out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/removeDuplicates/serial_hash/dedup --binary_args "-o out-of-order/removeDuplicates_serial_hash/output.txt -r 1 randomSeq_4K_16K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/convHull_quickHull out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/convexHull/serialHull/hull --binary_args "-o out-of-order/convHull_quickHull/output.txt -r 1 randPoints2D_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/convHull_serialHull out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/convexHull/serialHull/hull --binary_args "-o out-of-order/convHull_serialHull/output.txt -r 1 randPoints2D_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/delaunayTriangulation out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/delaunayTriangulation/incrementalDelaunay/delaunay --binary_args "-o out-of-order/delaunayTriangulation/output.txt -r 1 randPoints2D_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/delaunayRefine out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/delaunayRefine/incrementalRefine/refine --binary_args "-o out-of-order/delaunayRefine/output.txt -r 1 out-of-order/delaunayTriangulation/output.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/nearestNeighbors out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/nearestNeighbors/octTree/neighbors --binary_args "-o out-of-order/nearestNeighbors/output.txt -k 10 -d 3 -r 1 randPoints3D_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/rangeQuery2d_parallelPlaneSweep out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/rangeQuery2d/parallelPlaneSweep/range --binary_args "-o out-of-order/rangeQuery2d_parallelPlaneSweep/output.txt -r 1 randPoints2D_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/rangeQuery2d_serial out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/rangeQuery2d/serial/range --binary_args "-o out-of-order/rangeQuery2d_serial/output.txt -r 1 randPoints2D_16K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/breadthFirstSearch_backForwardBFS out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/backForwardBFS/BFS --binary_args "-o out-of-order/breadthFirstSearch_backForwardBFS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/breadthFirstSearch_serialBFS out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/serialBFS/BFS --binary_args "-o out-of-order/breadthFirstSearch_serialBFS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/maximalIndependentSet_incrementalMIS out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalIndependentSet/incrementalMIS/MIS --binary_args "-o out-of-order/maximalIndependentSet_incrementalMIS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/maximalIndependentSet_serialMIS out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalIndependentSet/serialMIS/MIS --binary_args "-o out-of-order/maximalIndependentSet_serialMIS/output.txt -r 1 randomAdjGraph_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/maximalMatching_incrementalMatching out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalMatching/incrementalMatching/matching --binary_args "-o out-of-order/maximalMatching_incrementalMatching/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/maximalMatching_serialMatching out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalMatching/serialMatching/matching --binary_args "-o out-of-order/maximalMatching_serialMatching/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/spanningForest_ndST out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/spanningForest/ndST/ST --binary_args "-o out-of-order/spanningForest_ndST/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/spanningForest_serialST out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/spanningForest/serialST/ST --binary_args "-o out-of-order/spanningForest_serialST/output.txt -r 1 randomEdgeArray_65K_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/minspanningForest_parallelFilterKruskal out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/minSpanningForest/parallelFilterKruskal/MST --binary_args "-o out-of-order/minspanningForest_parallelFilterKruskal/output.txt -r 1 randomWeightGraph_65K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/minspanningForest_serialMST out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/minSpanningForest/serialMST/MST --binary_args "-o out-of-order/minspanningForest_serialMST/output.txt -r 1 randomWeightGraph_65K_16K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/longestRepeatedSubstring out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/longestRepeatedSubstring/doubling/lrs --binary_args "-o out-of-order/longestRepeatedSubstring/output.txt -r 1 trigramString_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/suffixArray_parallelRange out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/suffixArray/parallelRange/SA --binary_args "-o out-of-order/suffixArray_parallelRange/output.txt -r 1 trigramString_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/suffixArray_serialDivsufsort out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/suffixArray/serialDivsufsort/SA --binary_args "-o out-of-order/suffixArray_serialDivsufsort/output.txt -r 1 trigramString_16K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/wordCounts_histogram out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/histogram/wc --binary_args "-o out-of-order/wordCounts_histogram/output.txt -r 1 trigramString_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/wordCounts_serial out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/serial/wc --binary_args "-o out-of-order/wordCounts_serial/output.txt -r 1 trigramString_16K.txt"
+
+
+X /u/csc368h/winter/pub/bin/gem5.opt --outdir out-of-order/nBody out-of-order.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/nBody/parallelCK/nbody --binary_args "-o out-of-order/nBody/output.txt -r 1 randPoints3D_16K.txt"
