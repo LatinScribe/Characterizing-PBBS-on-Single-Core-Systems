@@ -1,0 +1,65 @@
+Run these in a folder with trigrams.txt and system.py
+
+Generate Inputs:
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/sequenceData/randomSeq -t int -r 512 2048 randomSeq_512_2K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/geometryData/randPoints -k -d 3 2048 randPoints3D_2K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/geometryData/randPoints -d 2 2048 randPoints2D_2K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/graphData/randLocalGraph -j -d 3 -m 8192 2048 randomAdjGraph_8K_2K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/graphData/randLocalGraph -d 3 -m 8192 2048 randomEdgeArray_8K_2K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/graphData/addWeights randomEdgeArray_8K_2K.txt randomWeightGraph_8K_2K.txt
+
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/sequenceData/trigramString 2048 trigramString_2K.txt
+
+
+Call Benchmarks:
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/comparisonSort_sampleSort system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/sampleSort/sort --binary_args "-o size1/comparisonSort_sampleSort/output.txt -r 1 randomSeq_512_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/comparisonSort_serialSort system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/serialSort/sort --binary_args "-o size1/comparisonSort_serialSort/output.txt -r 1 randomSeq_512_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/integerSort_parallelRadixSort system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/integerSort/parallelRadixSort/isort --binary_args "-o size1/integerSort_parallelRadixSort/output.txt -r 1 randomSeq_512_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/integerSort_serialRadixSort system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/integerSort/serialRadixSort/isort --binary_args "-o size1/integerSort_serialRadixSort/output.txt -r 1 randomSeq_512_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/removeDuplicates_parlayhash system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/removeDuplicates/parlayhash/dedup --binary_args "-o size1/removeDuplicates_parlayhash/output.txt -r 1 randomSeq_512_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/removeDuplicates_serial_hash system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/removeDuplicates/serial_hash/dedup --binary_args "-o size1/removeDuplicates_serial_hash/output.txt -r 1 randomSeq_512_2K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/convHull_quickHull system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/convexHull/serialHull/hull --binary_args "-o size1/convHull_quickHull/output.txt -r 1 randPoints2D_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/convHull_serialHull system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/convexHull/serialHull/hull --binary_args "-o size1/convHull_serialHull/output.txt -r 1 randPoints2D_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/delaunayTriangulation system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/delaunayTriangulation/incrementalDelaunay/delaunay --binary_args "-o size1/delaunayTriangulation/output.txt -r 1 randPoints2D_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/delaunayRefine system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/delaunayRefine/incrementalRefine/refine --binary_args "-o size1/delaunayRefine/output.txt -r 1 size1/delaunayTriangulation/output.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/nearestNeighbors system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/nearestNeighbors/octTree/neighbors --binary_args "-o size1/nearestNeighbors/output.txt -k 10 -d 3 -r 1 randPoints3D_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/rangeQuery2d_parallelPlaneSweep system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/rangeQuery2d/parallelPlaneSweep/range --binary_args "-o size1/rangeQuery2d_parallelPlaneSweep/output.txt -r 1 randPoints2D_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/rangeQuery2d_serial system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/rangeQuery2d/serial/range --binary_args "-o size1/rangeQuery2d_serial/output.txt -r 1 randPoints2D_2K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/breadthFirstSearch_backForwardBFS system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/backForwardBFS/BFS --binary_args "-o size1/breadthFirstSearch_backForwardBFS/output.txt -r 1 randomAdjGraph_8K_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/breadthFirstSearch_serialBFS system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/serialBFS/BFS --binary_args "-o size1/breadthFirstSearch_serialBFS/output.txt -r 1 randomAdjGraph_8K_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/maximalIndependentSet_incrementalMIS system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalIndependentSet/incrementalMIS/MIS --binary_args "-o size1/maximalIndependentSet_incrementalMIS/output.txt -r 1 randomAdjGraph_8K_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/maximalIndependentSet_serialMIS system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalIndependentSet/serialMIS/MIS --binary_args "-o size1/maximalIndependentSet_serialMIS/output.txt -r 1 randomAdjGraph_8K_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/maximalMatching_incrementalMatching system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalMatching/incrementalMatching/matching --binary_args "-o size1/maximalMatching_incrementalMatching/output.txt -r 1 randomEdgeArray_8K_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/maximalMatching_serialMatching system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/maximalMatching/serialMatching/matching --binary_args "-o size1/maximalMatching_serialMatching/output.txt -r 1 randomEdgeArray_8K_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/spanningForest_ndST system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/spanningForest/ndST/ST --binary_args "-o size1/spanningForest_ndST/output.txt -r 1 randomEdgeArray_8K_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/spanningForest_serialST system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/spanningForest/serialST/ST --binary_args "-o size1/spanningForest_serialST/output.txt -r 1 randomEdgeArray_8K_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/minspanningForest_parallelFilterKruskal system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/minSpanningForest/parallelFilterKruskal/MST --binary_args "-o size1/minspanningForest_parallelFilterKruskal/output.txt -r 1 randomWeightGraph_8K_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/minspanningForest_serialMST system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/minSpanningForest/serialMST/MST --binary_args "-o size1/minspanningForest_serialMST/output.txt -r 1 randomWeightGraph_8K_2K.txt"
+
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/longestRepeatedSubstring system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/longestRepeatedSubstring/doubling/lrs --binary_args "-o size1/longestRepeatedSubstring/output.txt -r 1 trigramString_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/suffixArray_parallelRange system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/suffixArray/parallelRange/SA --binary_args "-o size1/suffixArray_parallelRange/output.txt -r 1 trigramString_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/suffixArray_serialDivsufsort system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/suffixArray/serialDivsufsort/SA --binary_args "-o size1/suffixArray_serialDivsufsort/output.txt -r 1 trigramString_2K.txt"
+
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/wordCounts_histogram system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/histogram/wc --binary_args "-o size1/wordCounts_histogram/output.txt -r 1 trigramString_2K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir size1/wordCounts_serial system.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/serial/wc --binary_args "-o size1/wordCounts_serial/output.txt -r 1 trigramString_2K.txt"
