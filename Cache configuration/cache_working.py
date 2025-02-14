@@ -5,34 +5,30 @@ import argparse
 
 class L1ICache(Cache):
     assoc = 2
-    tag_latency = 2
-    data_latency = 2
-    response_latency = 2
-    mshrs = 4
+    tag_latency = 1
+    data_latency = 1
+    response_latency = 1
+    mshrs = 8
     tgts_per_mshr = 20
-    size = '32kB'
-    is_read_only = True
-    writeback_clean = True
+    size='4kB'
 
 class L1DCache(Cache):
     assoc = 2
-    tag_latency = 2
-    data_latency = 2
-    response_latency = 2
-    mshrs = 4
+    tag_latency = 1
+    data_latency = 1
+    response_latency = 1
+    mshrs = 8
     tgts_per_mshr = 20
-    size = '32kB'
-    writeback_clean = True
+    size='4kB'
 
 class L2Cache(Cache):
     assoc = 8
-    tag_latency = 20
-    data_latency = 20
-    response_latency = 20
-    mshrs = 20
-    tgts_per_mshr = 12
-    size = '256kB'
-    writeback_clean = True
+    tag_latency = 8
+    data_latency = 8
+    response_latency = 1
+    mshrs = 8
+    tgts_per_mshr = 20
+    size='32kB'
 
 ## Add the "binary" option to the script
 DEFAULT_BINARY = '/u/csc368h/winter/pub/workloads/hello'
