@@ -54,13 +54,6 @@ parser.add_argument(
     help="Clock frequency for the CPU (default: 2GHz)."
 )
 parser.add_argument(
-    '-c', '--cpu_type',
-    type=str,
-    default='o3',
-    choices=['o3', 'minor'],
-    help="CPU model: 'o3' for out-of-order, 'minor' for in-order."
-)
-parser.add_argument(
     '--l1i_size', type=str, default='32kB', help="L1 ICache size (e.g. 16kB, 32kB...)"
 )
 parser.add_argument(
