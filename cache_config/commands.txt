@@ -14,3 +14,6 @@
 
 # serial bfs
 /u/csc368h/winter/pub/bin/gem5.opt --outdir test/breadthFirstSearch_serialBFS cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/serialBFS/BFS --binary_args " -r 1 randomAdjGraph_65K_16K.txt"
+
+# wordcount - serial
+/u/csc368h/winter/pub/bin/gem5.opt --outdir test/wordCounts_serial cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/wordCounts/serial/wc --binary_args "-r 1 trigramString_4K.txt" 
