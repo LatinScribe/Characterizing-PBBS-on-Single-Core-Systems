@@ -13,6 +13,7 @@
 /u/csc368h/winter/pub/bin/gem5.opt --outdir test/comparisonSort_sampleSort cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/sampleSort/sort --binary_args "-r 1 randomSeq_4K_16K.txt"
 # comparison sort - serial sort
 /u/csc368h/winter/pub/bin/gem5.opt --outdir test/comparisonSort_serialSort cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/serialSort/sort --binary_args "-r 1 randomSeq_4K_16K.txt"
+/u/csc368h/winter/pub/bin/gem5.opt --outdir assoc1/comparisonSort_serialSort cache_assoc1.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/serialSort/sort --binary_args "-r 1 randomSeq_4K_16K.txt"
 
 # serial bfs
 /u/csc368h/winter/pub/bin/gem5.opt --outdir test/breadthFirstSearch_serialBFS cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/breadthFirstSearch/serialBFS/BFS --binary_args " -r 1 randomAdjGraph_65K_16K.txt"
