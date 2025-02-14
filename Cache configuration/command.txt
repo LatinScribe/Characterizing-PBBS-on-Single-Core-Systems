@@ -1,1 +1,6 @@
-/u/csc368h/winter/pub/bin/gem5.opt --outdir test/comparisonSort_sampleSort cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/sampleSort/sort --binary_args "-o inorder/comparisonSort_sampleSort/output.txt -r 1 randomSeq_4K_16K.txt" 
+
+1.generates the input file
+/u/csc368h/winter/pub/workloads/pbbsbench/testData/sequenceData/randomSeq -t int -r 4096 16384 randomSeq_4K_16K.txt
+
+2.calls comparison_sort - sample_sort benchmark
+/u/csc368h/winter/pub/bin/gem5.opt --outdir test/comparisonSort_sampleSort cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/sampleSort/sort --binary_args "-r 1 randomSeq_4K_16K.txt"
