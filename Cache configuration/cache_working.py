@@ -89,7 +89,7 @@ system.system_port = system.membus.cpu_side_ports
 system.mem_mode = 'timing'
 
 # CPU Setup
-system.cpu = X86O3CPU() if args.cpu_type == 'o3' else X86MinorCPU()
+system.cpu = X86O3CPU()
 
 ## This is needed when we use x86 CPUs
 system.cpu.createInterruptController()
