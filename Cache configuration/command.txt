@@ -1,0 +1,1 @@
+/u/csc368h/winter/pub/bin/gem5.opt --outdir test/comparisonSort_sampleSort cache.py /u/csc368h/winter/pub/workloads/pbbsbench/benchmarks/comparisonSort/sampleSort/sort --binary_args "-o inorder/comparisonSort_sampleSort/output.txt -r 1 randomSeq_4K_16K.txt" 
