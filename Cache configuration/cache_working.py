@@ -50,17 +50,17 @@ parser.add_argument(
 parser.add_argument(
     '-f', '--frequency',
     type=str,
-    default='2GHz',
-    help="Clock frequency for the CPU (default: 2GHz)."
+    default='75MHz',
+    help="Clock frequency for the CPU (default: 75MHz)."
 )
 parser.add_argument(
-    '--l1i_size', type=str, default='32kB', help="L1 ICache size (e.g. 16kB, 32kB...)"
+    '--l1i_size', type=str, default='4kB', help="L1 ICache size (e.g. 16kB, 32kB...)"
 )
 parser.add_argument(
-    '--l1d_size', type=str, default='32kB', help="L1 DCache size"
+    '--l1d_size', type=str, default='4kB', help="L1 DCache size"
 )
 parser.add_argument(
-    '--l2_size', type=str, default='256kB', help="L2 cache size"
+    '--l2_size', type=str, default='32kB', help="L2 cache size"
 )
 
 ## Parse command-line arguments
