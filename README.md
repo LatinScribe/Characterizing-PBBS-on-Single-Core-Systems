@@ -9,3 +9,6 @@ benchmark suite for single-core systems. We explore different
 configurations of input set, we contrast in-order and out-oforder pipelining, and we investigate different cache configurations.
 
 See the PDF file for the full report!
+
+# Authors:
+Henry Chen, Runyi Li, Nicholas Pedro, Julie Tang
